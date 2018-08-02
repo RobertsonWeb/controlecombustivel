@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+	  <br>
+	  <div class="row">
+	    <div class="col">
+	      	<div class="card">
+			  	<div class="card-header text-center">
+				  {% icon 'exclamation-circle' %} Informar Km percorrida
+				</div>
+				<div class="row">
+					{% for abastecimento in abastecimentos_km_pendente %}
+					<div class="col" style="padding-top:5px; padding-bottom:5px;">
+						<a href="{{ abastecimento.get_informar_km_percorrida_url }}" class="btn btn-lg btn-outline-danger w-100">{% icon 'edit' %} {{ abastecimento.data|date:"d/m" }} {{ abastecimento.posto }} {{ abastecimento.litros|floatformat:2 }}litros</a>
+					</div>
+					{% empty %}
+						<div class="col">
+							<p class="text-center text-warning">Nenhum abastecimento com km pendente.</p>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+	    </div>
+	  </div>
+	  <br>
+	  <div class="row">
+	    <div class="col">
+	      	<div class="card">
+			  	<div class="card-header text-center">
+				  {% icon 'clock' %} Comparativo
+				</div>
+				<div class="row">
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p>Mês anterior:<br>R$ {{ valor_total_mes_anterior|floatformat:2 }}</p>
+					</div>
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p>Mês vigente:<br>R$ {{ valor_total_mes_vigente|floatformat:2 }}</p>
+					</div>
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p>Diferença:<br>R$ {{ diferenca_valores_totais|floatformat:2 }}</p>
+						<!-- abastecimentos_mes_vigente -->
+					</div>
+				</div>
+			</div>
+	    </div>
+	  </div>
+	  <br>
+	  <div class="row">
+	    <div class="col">
+			<a class="btn btn-lg btn-danger w-100" href="{% url 'abastecimento_add' %}">{% icon 'plus-circle' %} Abastecer</a>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}

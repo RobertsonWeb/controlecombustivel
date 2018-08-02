@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %}
+
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block title %}
+    {% icon 'plus-cicle' %} Registro de abastecimento
+{% endblock %}
+
+{% block content %}
+	{% if object %}
+		{% bootstrap_alert object %}
+	{% endif %}
+    <form role="form" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <hr>
+        <button type="submit" class="btn btn-danger btn-lg w-100">{% icon 'save' %} Gravar</button>
+        <br><br>
+        <a href="javascript:window.history.go(-1);" class="btn btn-danger btn-lg w-100">{% icon 'arrow-left' %} Cancelar</a>
+    </form>
+{% endblock %}

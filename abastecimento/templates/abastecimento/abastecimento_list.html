@@ -1,0 +1,39 @@
+{% extends 'core/base.html' %}
+
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block title %}
+    {% icon 'fa-gas-pump' %} Registros de abastecimentos
+{% endblock %}
+
+{% block content %}
+	<table class="table table-hover table-rounded table-responsive" role="table">
+		<thead>
+			<tr>
+				<th>Data</th>
+				<th>Posto</th>
+				<th>Combustível</th>
+				<th>Valor</th>
+				<th>Km</th>
+				<th>Alterar</th>
+				<th>Excluir</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for abastecimento in object_list %}
+			<tr>
+				<td>{{ abastecimento.data|date:"d/m/Y" }}</td>
+				<td>{{ abastecimento.posto|upper }}</td>
+				<td>{{ abastecimento.get_tipo_combustivel_display|upper }}</td>
+				<td>R$ {{ abastecimento.valor|floatformat:2 }}</td>
+				<td><a href="{{ abastecimento.get_informar_km_percorrida_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'edit' %} {% if abastecimento.km_percorridos %}{{ abastecimento.km_percorridos }}{% else %}0{% endif %}km</a></td>
+				<td><a href="{{ abastecimento.get_absolute_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'edit' %}</a>
+				</td>
+				<td><a href="{{ abastecimento.get_delete_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'trash' %}</a>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
