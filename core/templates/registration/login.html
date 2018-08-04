@@ -1,0 +1,33 @@
+{% extends 'core/bootstrap.html' %}
+
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block bootstrap4_content %}
+	<nav class="navbar navbar-expand-lg navbar-dark bg-danger" style="background-color: #e3f2fd;">
+	  <a class="navbar-brand" href="{% url 'painel' %}">{% icon 'gas-pump' %}</a>
+	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span>
+	  </button>
+	</nav>
+
+
+	<main role="main" class="container text-center">
+	  <br>
+		{% icon 'gas-pump' 'fa-5x' %}
+      <h3>{% block title %}<small>Controle de Abastecimento</small>{% endblock %}</h3>
+      <br>
+        {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+      <center>
+        <form role="form" method="post" class="form" style="max-width:300px;">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <hr>
+        <button type="submit" class="btn btn-danger btn-lg w-100">{% icon 'sign-in-alt' %} Entrar</button>
+        <br><br>
+	    </form>
+      </center>
+      <br><br>
+    </main>
+
+{% endblock %}

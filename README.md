@@ -4,7 +4,6 @@
 
 ## Ainda falta implementar:
 ```
-* Sistema de account do Django
 * No campo posto do formulário de registro do abastecimento usar um datalist para facilitar a padronização da entrada dos dados
 * Melhorar a documentção
 ```

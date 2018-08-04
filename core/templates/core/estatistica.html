@@ -1,0 +1,49 @@
+{% extends 'core/base.html' %}
+{% load bootstrap4 %}
+{% load icons %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+	<div class="container">
+	  <br>
+	  <div class="row">
+	    <div class="col">
+	      	<div class="card">
+			  	<div class="card-header text-center">
+				  {% icon 'exclamation-circle' %} Melhores resultados dos últimos 30 dias
+				</div>
+				<div class="row text-danger">
+					<div class="col" style="padding-top:5px; padding-bottom:5px;">
+						<p class="text-center">
+							<small>Posto</small><br><strong>{{ melhor_rendimento_mes.posto }}</strong><br>
+							<small>Valor abastecido</small><br><strong>R$ {{ melhor_rendimento_mes.valor|floatformat:2 }}</strong><br>
+							<small>Km percorrida</small><br><span class="text-center" style="font-size:30px;">{{ melhor_rendimento_mes.km_media_por_litro }} km/l</span>
+					</div>
+				</div>
+			</div>
+	    </div>
+	  </div>
+	  <br>
+	  <div class="row">
+	    <div class="col">
+	      	<div class="card">
+			  	<div class="card-header text-center">
+				  {% icon 'clock' %} Comparativo de gastos com abastecimento
+				</div>
+				<div class="row text-danger">
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p><small>Mês anterior:</small><br><strong>R$ {{ valor_total_mes_anterior|floatformat:2 }}</strong></p>
+					</div>
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p><small>Mês vigente:</small><br><strong>R$ {{ valor_total_mes_vigente|floatformat:2 }}</strong></p>
+					</div>
+					<div class="col text-center" style="padding-top:5px; padding-bottom:5px;">
+						<p><small>Diferença:</small><br><strong>R$ {{ diferenca_valores_totais|floatformat:2 }}</strong></p>
+					</div>
+				</div>
+			</div>
+	    </div>
+	  </div>
+	</div>
+{% endblock %}

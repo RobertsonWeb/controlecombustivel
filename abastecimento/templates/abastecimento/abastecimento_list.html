@@ -16,6 +16,7 @@
 				<th>Combustível</th>
 				<th>Valor</th>
 				<th>Km</th>
+				<th>Km/l</th>
 				<th>Alterar</th>
 				<th>Excluir</th>
 			</tr>
@@ -24,10 +25,11 @@
 			{% for abastecimento in object_list %}
 			<tr>
 				<td>{{ abastecimento.data|date:"d/m/Y" }}</td>
-				<td>{{ abastecimento.posto|upper }}</td>
+				<td><strong>{{ abastecimento.posto|upper }}</strong></td>
 				<td>{{ abastecimento.get_tipo_combustivel_display|upper }}</td>
 				<td>R$ {{ abastecimento.valor|floatformat:2 }}</td>
-				<td><a href="{{ abastecimento.get_informar_km_percorrida_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'edit' %} {% if abastecimento.km_percorridos %}{{ abastecimento.km_percorridos }}{% else %}0{% endif %}km</a></td>
+				<td><a href="{{ abastecimento.get_informar_km_percorrida_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'edit' %} {% if abastecimento.km_percorridos %}{{ abastecimento.km_percorridos }}{% else %}0{% endif %} <small>km</small></a></td>
+				<td><strong>{% if abastecimento.km_percorridos %}{{ abastecimento.km_media_por_litro }} <small>km/l</small>{% endif %}</strong></td>
 				<td><a href="{{ abastecimento.get_absolute_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'edit' %}</a>
 				</td>
 				<td><a href="{{ abastecimento.get_delete_url }}" class="btn btn-sm btn-outline-danger w-100">{% icon 'trash' %}</a>

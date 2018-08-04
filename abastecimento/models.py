@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from django.urls import reverse
@@ -25,6 +25,12 @@ class AbastecimentoSomatorioValorMesVigente(models.Manager):
         return super(AbastecimentoSomatorioValorMesVigente, self).get_queryset().filter(data__year=datetime.now().year, data__month=datetime.now().month).aggregate(valor_total=models.Sum('valor'), valor_media=models.Avg('valor'))
 
 
+class AbastecimentoMelhorRendimentoPostoMesManager(models.Manager):
+    def get_queryset(self):
+        data_referencia = datetime.now() - timedelta(days=30)
+        return super(AbastecimentoMelhorRendimentoPostoMesManager, self).get_queryset().filter(data__gte=data_referencia).exclude(km_media_por_litro=0).order_by('-km_media_por_litro').first()
+
+
 class Abastecimento(models.Model):
     TIPOS_COMBUSTIVEL = (
         ('GASOLINA', 'Gasolina'),
@@ -44,7 +50,7 @@ class Abastecimento(models.Model):
     km_pendente = AbastecimentoKmPendenteManager()
     mes_anterior = AbastecimentoSomatorioValorMesAnterior()
     mes_vigente = AbastecimentoSomatorioValorMesVigente()
-
+    melhor_rendimento_mes = AbastecimentoMelhorRendimentoPostoMesManager()
 
     class Meta:
         ordering  =  ['data']
